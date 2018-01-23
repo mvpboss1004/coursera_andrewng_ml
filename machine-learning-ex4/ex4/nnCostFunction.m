@@ -29,7 +29,7 @@ m = size(X, 1);
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
-
+Y = dummyvar(y)
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -61,31 +61,30 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+for i=1:m
+  y = Y(i,:)'  % 10*1
+  a1 = [1, X(i,:)]';  % 401*1
+  z2 = Theta1*a1; % 25*1
+  a2 = [1; sigmoid(z2)];  % 26*1
+  z3 = Theta2*a2; % 10*1
+  a3 = sigmoid(z3); % 10*1
+  J += -y'*log(a3) - (1-y')*log(1-a3);
+  d3 = a3-y;  % 10*1
+  d2 = (Theta2'*d3) .* (a2.*(1-a2)); % 26*1
+  Theta2_grad += d3 * a2';
+  Theta1_grad += d2(2:end) * a1';
+end
+J /= m;
+Theta2_grad /= m;
+Theta1_grad /= m;
 % -------------------------------------------------------------
+J += lambda/(2*m) * (sum(sumsq(Theta1(:,2:end))) + sum(sumsq(Theta2(:,2:end))));
+Theta2_grad += lambda/m * [zeros(num_labels,1), Theta2(:,2:end)];
+Theta1_grad += lambda/m * [zeros(hidden_layer_size,1), Theta1(:,2:end)];
 
 % =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
