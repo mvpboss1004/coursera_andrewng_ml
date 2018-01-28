@@ -29,7 +29,7 @@ m = size(X, 1);
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
-Y = dummyvar(y)
+Y = dummyvar(y);
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -62,7 +62,7 @@ Y = dummyvar(y)
 %               and Theta2_grad from Part 2.
 %
 for i=1:m
-  y = Y(i,:)'  % 10*1
+  y = Y(i,:)';  % 10*1
   a1 = [1, X(i,:)]';  % 401*1
   z2 = Theta1*a1; % 25*1
   a2 = [1; sigmoid(z2)];  % 26*1
@@ -86,5 +86,4 @@ Theta1_grad += lambda/m * [zeros(hidden_layer_size,1), Theta1(:,2:end)];
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 end
