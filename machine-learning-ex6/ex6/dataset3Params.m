@@ -22,8 +22,14 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
-
-
+steps = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+n = size(steps, 2);
+Cigma = zeros(n, n);
+for i=1:n
+    for j=1:n
+        Cigma(i,j) = mean(double(svmPredict(model, Xval)));
+    end
+end
 
 
 
