@@ -27,14 +27,14 @@ n = size(steps, 2);
 Cigma = zeros(n, n);
 for i=1:n
     for j=1:n
-        model = svmTrain(X, y, steps(i), @(x1,x2)gaussianKernel(x1, x2, steps(j)));
         Cigma(i,j) = mean(double(svmPredict(model, Xval)~=yval));
     end
 end
-[r, i] = min(Cigma);
-[c, j] = min(r);
-sigma = steps(j);
-C = steps(i(j));
+[r, i] = min
+
+
+
+
 % =========================================================================
 
 end
