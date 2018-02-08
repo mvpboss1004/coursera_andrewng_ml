@@ -11,6 +11,7 @@ vocabList = getVocabList();
 
 % Init return value
 word_indices = [];
+vocabMap = containers.Map(vocabList, 1:size(vocabList,1));
 
 % ========================== Preprocess Email ===========================
 
@@ -96,18 +97,13 @@ while ~isempty(email_contents)
     % Note: You can use strcmp(str1, str2) to compare two strings (str1 and
     %       str2). It will return 1 only if the two strings are equivalent.
     %
-
-
-
-
-
-
-
-
-
-
+    try idx = vocabMap(str); 
+    catch idx = -1; continue;
+    end;
+    if idx > 0
+        word_indices = [word_indices; idx];
+    end
     % =============================================================
-
 
     % Print to screen, ensuring that the output lines are not too long
     if (l + length(str) + 1) > 78
